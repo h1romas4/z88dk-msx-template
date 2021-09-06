@@ -1,5 +1,11 @@
 # Z88DK MSX build template with sample game
 
+This repository contains sample games made with [Z88DK](https://github.com/z88dk/z88dk), [MAME](https://www.mamedev.org/) and [C-BIOS](http://cbios.sourceforge.net/).
+
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/ponpon-01.png)
+
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/ponpon-02.png)
+
 ## Require
 
 - Ubuntu 20.04 LTS or Windows WSL2
