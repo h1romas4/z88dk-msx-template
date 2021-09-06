@@ -182,4 +182,7 @@ MIT License
 
 ## Thanks
 
-[Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk)
+- [Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk)
+- [MAME](https://www.mamedev.org/)
+- [C-BIOS](http://cbios.sourceforge.net/)
+- [openMSX](https://openmsx.org/)
