@@ -264,7 +264,7 @@ void game_main(uint8_t stick)
 {
     uint8_t ball_next_x;
     uint8_t ball_next_y;
-    uint8_t ball_vx = 0;
+    int8_t ball_vx = 0;
 
     // フレーム間先行入力
     if(stick & st_left || stick & st_right) {
