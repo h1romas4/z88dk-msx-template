@@ -24,7 +24,7 @@ jobs:
         export PATH=${Z88DK_HOME}/bin:${PATH}
         mkdir build
         cd build
-        cmake ..
+        /usr/bin/cmake ..
         make
     - uses: ncipollo/release-action@v1
       with:
