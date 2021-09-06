@@ -169,3 +169,11 @@ add_compile_flags(C
     -DAMALLOC
 )
 ```
+
+## License
+
+MIT License
+
+## Thanks
+
+[Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk)
