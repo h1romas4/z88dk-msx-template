@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: |
         export Z88DK_HOME=/snap/z88dk/current
-        export ZCCCFG=${Z88DK_HOME}/lib/config
+        export ZCCCFG=${Z88DK_HOME}/share/z88dk/lib/config
         export PATH=${Z88DK_HOME}/bin:${PATH}
         mkdir build
         cd build
