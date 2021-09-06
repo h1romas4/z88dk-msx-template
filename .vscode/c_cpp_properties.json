@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "z88dk",
+            "includePath": [
+                "${workspaceFolder}/src/msx/*",
+                "${env:Z88DK_HOME}/include/*",
+                "${env:Z88DK_HOME}/include/**/*"
+            ],
+            "defines": [],
+            "compilerPath": "${env:Z88DK_HOME}/bin/zcc",
+            "cStandard": "c11",
+            "intelliSenseMode": "gcc-x86"
+        }
+    ],
+    "version": 4
+}
