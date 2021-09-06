@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    - name: Z88DK Toolchain Setup
+      run: |
+        sudo snap install z88dk --beta
+        sudo apt install cmake
+    - name: Build
+      run: |
+        export Z88DK_HOME=/snap/z88dk/current
+        export ZCCCFG=${Z88DK_HOME}/lib/config
+        export PATH=${Z88DK_HOME}/bin:${PATH}
+        mkdir build
+        cd build
+        cmake ..
+        make
