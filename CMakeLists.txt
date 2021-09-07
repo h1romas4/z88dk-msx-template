@@ -22,7 +22,6 @@ add_source_files(
     ./src/msx/chars.asm
 )
 
-SET(CMAKE_C_FLAGS "")
 add_compile_flags(C
     +msx
     -vn
