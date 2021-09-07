@@ -83,7 +83,7 @@ void init_graphics()
     // 画面クリア
     fill(VRAM_START, VRAM_NONE, VRAM_WIDTH * VRAM_HEIGHT);
 
-    // PSG 設定(3面に同じデーターを転送)
+    // PCG 設定(3面に同じデーターを転送)
     vwrite(chars, 0x0000, 0x200);
     vwrite(chars, 0x0800, 0x200);
     vwrite(chars, 0x1000, 0x200);
