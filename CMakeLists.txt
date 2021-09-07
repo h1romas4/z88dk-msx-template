@@ -7,7 +7,8 @@ enable_language(ASM)
 set(CMAKE_C_COMPILER $ENV{Z88DK_HOME}/bin/zcc)
 set(CMAKE_ASM_COMPILER $ENV{Z88DK_HOME}/bin/zcc)
 
-set(CMAKE_VERBOSE_MAKEFILE 1)
+# for debug
+# set(CMAKE_VERBOSE_MAKEFILE 1)
 
 include(./cmake/macros.cmake)
 
@@ -30,6 +31,7 @@ add_compile_flags(C
     -lndos
     -lmsxbios
     # -debug
+    # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
     -DAMALLOC
 )
 

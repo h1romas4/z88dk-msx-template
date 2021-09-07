@@ -206,7 +206,7 @@ void game_randam_block(uint8_t count)
 void game_init()
 {
     // 画面クリア
-    fill(VRAM_START, 0x20, 32 * 24);
+    fill(VRAM_START, VRAM_NONE, VRAM_WIDTH * VRAM_HEIGHT);
 
     // 壁
     fill(VPOS(0,  1) , '=', VRAM_WIDTH);
