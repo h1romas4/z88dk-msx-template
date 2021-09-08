@@ -25,7 +25,7 @@ export ZCCCFG=${Z88DK_HOME}/lib/config
 export PATH=${Z88DK_HOME}/bin:${PATH}
 ```
 
-Verification
+Verifiy
 
 ```
 $ which zcc
@@ -50,7 +50,7 @@ cmake ..
 make
 ```
 
-Verification
+Verifiy
 
 ```
 ls -laF ../dist/*.rom
@@ -70,6 +70,14 @@ $ ls -laF dist/*.rom
 -rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
 $ openmsx dist/example.rom
 ```
+
+Debug ([openmsx-debugger](https://github.com/openMSX/debugger))
+
+Apply patch
+
+-  openmsx-debugger で z88dk の -m 形式の .map symbol を読ませる hack + Ubuntu 20.04 LTS Qt 5.14 Obsolete fix
+
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/openmsx-debugger-01.png)
 
 ## Run with MAME
 

@@ -29,6 +29,7 @@ add_compile_flags(C
     -lm
     -lndos
     -lmsxbios
+    -m
     # -debug
     # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
     -DAMALLOC
