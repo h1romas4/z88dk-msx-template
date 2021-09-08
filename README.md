@@ -181,11 +181,9 @@ add_compile_flags(C
     -lm
     -lndos
     -lmsxbios
-    -create-app
-    -subtype=rom
     -m
-    #-debug # add this line ?
-    -s
+    # -debug
+    # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
     -DAMALLOC
 )
 ```
