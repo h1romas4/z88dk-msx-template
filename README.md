@@ -85,7 +85,7 @@ Apply patch
 
 First step
 
-- [MSX ゲーム開発を mame/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
+- [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
 Set MAME_HOME on `~/.bashrc`
 
