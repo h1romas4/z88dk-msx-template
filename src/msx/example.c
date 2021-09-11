@@ -84,9 +84,9 @@ void init_graphics()
     fill(VRAM_START, VRAM_NONE, VRAM_WIDTH * VRAM_HEIGHT);
 
     // PCG 設定(3面に同じデーターを転送)
-    vwrite(chars, 0x0000, 0x200);
-    vwrite(chars, 0x0800, 0x200);
-    vwrite(chars, 0x1000, 0x200);
+    vwrite(chars, 0x0000, 0x800);
+    vwrite(chars, 0x0800, 0x800);
+    vwrite(chars, 0x1000, 0x800);
 
     // 色設定(0000|0000 = 前|背景)
     set_char_color('=', 0x54, place_all);

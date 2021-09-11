@@ -40,6 +40,13 @@
             }
         },
         {
+            "label": "Launch openMSX debugger",
+            "type": "shell",
+            "linux": {
+                "command": "openmsx-debugger"
+            }
+        },
+        {
             "label": "Delpy to MAME",
             "type": "shell",
             "dependsOn": "Run Build",
