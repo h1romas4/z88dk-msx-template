@@ -70,12 +70,12 @@ void wait_vsync(uint16_t count)
  */
 void init_graphics()
 {
-	// スクリーンモード
-	set_color(15, 1, 1);
-	set_mangled_mode();
+    // スクリーンモード
+    set_color(15, 1, 1);
+    set_mangled_mode();
 
-	// スプライトモード
-	set_sprite_mode(sprite_default);
+    // スプライトモード
+    set_sprite_mode(sprite_default);
 
     // キークリックスイッチ(OFF)
     *(uint8_t *)MSX_CLIKSW = 0;
