@@ -46,7 +46,7 @@ Compile
 
 ```
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_C_COMPILER=${Z88DK_HOME}/bin/zcc ..
 make
 ```
 
