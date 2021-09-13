@@ -22,7 +22,7 @@
             "type": "shell",
             "dependsOn": "Clean CMake directory",
             "linux": {
-                "command": "(cd ${workspaceFolder}/build && cmake ..)"
+                "command": "(cd ${workspaceFolder}/build && cmake -DCMAKE_C_COMPILER=${env:Z88DK_HOME}/bin/zcc ..)"
             }
         },
         {
