@@ -134,42 +134,7 @@ or Debug launch
 
 ## Run with MAME (z88dk-gdb)
 
-Run MAME with gdbstub
-
-```
-$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debugger gdbstub -debug)
-gdbstub: listening on port 23946
-```
-
-Connect z88dk-gdb to MAME
-
-```
-$ z88dk-gdb -h 127.0.0.1 -p 23946 -x dist/example.map
-Reading debug symbols...OK
-Connected to the server.
-                    di                                      ;[0000] f3
-
-$0000()> break _main
-Adding breakpoint at '_main' $461d (_main)
-
-$0000()> cont
-Hit breakpoint 1: @461d (_main)
-_main:
-                    ld      c,(hl)                          ;[461d] 4e
-
-$461d(_main+0)> dis
-_main:
-                    ld      c,(hl)                          ;[461d] 4e
-                    inc     hl                              ;[461e] 23
-                    ld      b,(hl)                          ;[461f] 46
-                    ld      hl,$0006                        ;[4620] 21 06 00
-                    add     hl,bc                           ;[4623] 09
-                    call    $4f03                           ;[4624] cd 03 4f
-                    pop     de                              ;[4627] d1
-                    add     hl,de                           ;[4628] 19
-                    pop     de                              ;[4629] d1
-                    call    $4f47                           ;[462a] cd 47 4f
-```
+Enable `-debug` flag and re-build
 
 `CMakefiles.txt`
 
@@ -182,11 +147,29 @@ add_compile_flags(C
     -lndos
     -lmsxbios
     -m
-    # -debug
+    -debug # Enable
     # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
     -DAMALLOC
 )
 ```
+
+Run MAME with gdbstub
+
+```
+$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debugger gdbstub -debug)
+gdbstub: listening on port 23946
+```
+
+Connect z88dk-gdb to MAME
+
+```
+$ cd dist # Match the path to the source code in the .map file(../src/msx/example.c).
+$ z88dk-gdb -h 127.0.0.1 -p 23946 -x example.map
+Reading debug symbols...OK
+Connected to the server.
+```
+
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-01.png)
 
 ## License
 
