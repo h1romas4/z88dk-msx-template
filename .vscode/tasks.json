@@ -121,15 +121,7 @@
             "label": "Launch z88dk-gdb",
             "type": "shell",
             "linux": {
-                "command": "z88dk-gdb",
-                "args": [
-                    "-h",
-                    "127.0.0.1",
-                    "-p",
-                    "23946",
-                    "-x",
-                    "${workspaceFolder}/dist/example.map"
-                ]
+                "command": "(cd ${workspaceFolder}/dist && z88dk-gdb -h 127.0.0.1 -p 23946 -x ${workspaceFolder}/dist/example.map)"
             }
         },
         {
