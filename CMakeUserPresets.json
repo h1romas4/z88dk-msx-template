@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "configurePresets": [
+    {
+      "name": "z88dk",
+      "binaryDir": "${workspaceFolder}/build",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "${env:Z88DK_HOME}/bin/zcc",
+        "CMAKE_ASM_COMPILER": "${env:Z88DK_HOME}/bin/zcc"
+      }
+    }
+  ]
+}
