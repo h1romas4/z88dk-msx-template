@@ -16,7 +16,7 @@ jobs:
     - name: Z88DK Toolchain Setup
       run: |
         sudo snap install z88dk --beta
-        sudo apt install cmake
+        sudo apt install cmake ninja-build
     - name: Build
       run: |
         export Z88DK_HOME=/snap/z88dk/current
@@ -24,8 +24,8 @@ jobs:
         export PATH=${Z88DK_HOME}/bin:${PATH}
         mkdir build
         cd build
-        /usr/bin/cmake -DCMAKE_C_COMPILER=${Z88DK_HOME}/bin/zcc ..
-        make
+        /usr/bin/cmake -DCMAKE_C_COMPILER=${Z88DK_HOME}/bin/zcc -GNinja ..
+        ninja
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "dist/example.rom"
