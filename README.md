@@ -171,6 +171,8 @@ Connected to the server.
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-01.png)
 
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-02.png)
+
 ## License
 
 MIT License
