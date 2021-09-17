@@ -24,7 +24,7 @@ jobs:
         export PATH=${Z88DK_HOME}/bin:${PATH}
         mkdir build
         cd build
-        /usr/bin/cmake -DCMAKE_C_COMPILER=${Z88DK_HOME}/bin/zcc -GNinja ..
+        /usr/bin/cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake -GNinja ..
         ninja
     - uses: ncipollo/release-action@v1
       with:

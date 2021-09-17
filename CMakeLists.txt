@@ -4,8 +4,6 @@ cmake_minimum_required(VERSION 3.0)
 project(example.rom C ASM)
 
 enable_language(ASM)
-set(CMAKE_C_COMPILER $ENV{Z88DK_HOME}/bin/zcc)
-set(CMAKE_ASM_COMPILER $ENV{Z88DK_HOME}/bin/zcc)
 
 # for debug
 # set(CMAKE_VERBOSE_MAKEFILE 1)
