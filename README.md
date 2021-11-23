@@ -12,7 +12,20 @@ This repository contains sample games made with [Z88DK](https://github.com/z88dk
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/ponpon-02.png)
 
-## Require
+## License
+
+MIT License
+
+## Special Thanks
+
+- [Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk) - Compiler and toolchain
+- [Lovely Composer](https://1oogames.itch.io/lovely-composer) - Music Sequencer
+- [@aburi6800](https://github.com/aburi6800/msx-PSGSoundDriver) - MSX Sound Driver and Convertor
+- [MAME](https://www.mamedev.org/) - Emulator
+- [openMSX](https://openmsx.org/) - Emulator
+- [C-BIOS](http://cbios.sourceforge.net/) - MSX Open Source BIOS
+
+## Build Require
 
 - Ubuntu 20.04 LTS or Windows WSL2
 - Setup [Z88DK](https://github.com/z88dk/z88dk/wiki/installation#linux--unix)
@@ -174,14 +187,3 @@ Connected to the server.
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-01.png)
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-02.png)
-
-## License
-
-MIT License
-
-## Thanks
-
-- [Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk)
-- [MAME](https://www.mamedev.org/)
-- [C-BIOS](http://cbios.sourceforge.net/)
-- [openMSX](https://openmsx.org/)
