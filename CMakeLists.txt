@@ -6,18 +6,15 @@ project(example.rom C ASM)
 enable_language(ASM)
 
 # for debug
-# set(CMAKE_VERBOSE_MAKEFILE 1)
+#set(CMAKE_VERBOSE_MAKEFILE 1)
 
 include(./cmake/macros.cmake)
 
-header_directories(
-    ./src/msx
-    $ENV{Z88DK_HOME}/include
-)
-
 add_source_files(
-    ./src/msx/example.c
-    ./src/msx/chars.asm
+    ./src/c/example.c
+    ./src/asm/psgdriver.asm
+    ./src/asm/define_graphic.asm
+    ./src/asm/define_music.asm
 )
 
 add_compile_flags(C

@@ -1,10 +1,14 @@
+// license:MIT License
+// copyright-holders:Hiromasa Tanaka
 #include <stdio.h>
 #include <stdlib.h>
 
 #include <msx/gfx.h>
+#include "psgdriver.h"
 
 #define MSX_CLIKSW  0xf3db
 #define MSX_JIFFY   0xfc9e
+#define MSX_H_TIMI  0xfd9f
 
 #define VRAM_NONE   0x20
 #define VRAM_START  0x1800
@@ -14,6 +18,8 @@
 
 // chars.asm::_chars ラベルの参照(VRAM PCG 転送用)
 extern unsigned char chars[];
+// 音楽・効果音のラベル参照（psgdriver.asm 用）
+extern uint8_t music_title[], music_main[], music_game_over[], sound_extend[], sound_get[];
 
 // ゲームの状態遷移
 typedef enum {
@@ -135,6 +141,9 @@ void title_init()
     title.tick = 0;
     title.vy = 1;
 
+    // サウンド再生
+    sounddrv_bgmplay(music_title);
+
     // アドバタイズデモに遷移
     game.state = TITLE_ADVERTISE;
 }
@@ -157,6 +166,8 @@ void title_advertise(uint8_t trigger)
         // アドバタイズデモの経過 tick 数で乱数シードを初期化する
         // ぽんぽん目押しで好きな面を狙える
         seed_rnd(title.tick);
+        // サウンド停止
+        sounddrv_stop();
         // ゲーム初期化に遷移
         game.state = GAME_INIT;
     }
@@ -235,6 +246,9 @@ void game_init()
     // ステート表示
     print_state();
 
+    // サウンド再生
+    sounddrv_bgmplay(music_main);
+
     // ゲームに遷移
     game.state = GAME_MAIN;
 }
@@ -287,6 +301,8 @@ void game_main(uint8_t stick)
         ball_next_y = ball_next_y - ball.vy;
         ball.vy = ball.vy * -1;
     } else if(next_block == '$') {
+        // 効果音再生
+        sounddrv_sfxplay(sound_get);
         // ゴールド取得
         game.score += 10;
         if(game.score > game.score_hi) {
@@ -296,10 +312,17 @@ void game_main(uint8_t stick)
         print_state();
         // ネクストステージ
         if(game.remein_clear <= 0) {
+            // 効果音再生
+            sounddrv_sfxplay(sound_extend);
+            // ボム・ゴールド追加
             game_randam_block(20);
         }
     } else if(next_block == '>') {
         // ボム激突
+        // サウンド停止
+        sounddrv_stop();
+        // サウンド再生
+        sounddrv_bgmplay(music_game_over);
         // ゲームオーバーに遷移
         game.state = GAME_OVER;
     }
@@ -358,6 +381,15 @@ void main()
 {
     // 画面初期化
     init_graphics();
+
+    // サウンドドライバー初期化
+    sounddrv_init();
+    // サウンドドライバーフック設定
+    uint8_t *h_time = (uint8_t *)MSX_H_TIMI;
+    uint16_t hook = (uint16_t)sounddrv_exec;
+    h_time[0] = 0xc3; // JP
+    h_time[1] = (uint8_t)(hook & 0xff);
+    h_time[2] = (uint8_t)((hook & 0xff00) >> 8);
 
     // ゲームステート初期化
     game.state = TITLE_INIT;

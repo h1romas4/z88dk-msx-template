@@ -33,28 +33,6 @@
             }
         },
         {
-            "label": "Clean Build (Nanja)",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${workspaceFolder}/build && ninja clean && rm -f ${workspaceFolder}/dist/*)"
-            }
-        },
-        {
-            "label": "Run CMake (Ninja)",
-            "type": "shell",
-            "dependsOn": "Clean CMake directory",
-            "linux": {
-                "command": "(cd ${workspaceFolder}/build && cmake -DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cmake/z88dk.cmake -GNinja ..)"
-            }
-        },
-        {
-            "label": "Run Build (Ninja)",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${workspaceFolder}/build && ninja)"
-            }
-        },
-        {
             "label": "Launch openMSX",
             "type": "shell",
             "linux": {
@@ -66,79 +44,6 @@
             "type": "shell",
             "linux": {
                 "command": "openmsx-debugger"
-            }
-        },
-        {
-            "label": "Delpy to MAME (make)",
-            "type": "shell",
-            "dependsOn": "Run Build (make)",
-            "linux": {
-                "command": "zip",
-                "args": [
-                    "-j",
-                    "-u",
-                    "${env:MAME_HOME}/roms/msx1_cart/example.zip",
-                    "${workspaceFolder}/dist/example.rom"
-                ]
-            }
-        },
-        {
-            "label": "Delpy to MAME (Ninja)",
-            "type": "shell",
-            "dependsOn": "Run Build (Ninja)",
-            "linux": {
-                "command": "zip",
-                "args": [
-                    "-j",
-                    "-u",
-                    "${env:MAME_HOME}/roms/msx1_cart/example.zip",
-                    "${workspaceFolder}/dist/example.rom"
-                ]
-            }
-        },
-        {
-            "label": "Launch MAME",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${env:MAME_HOME} && ./cbios cbios example -window -resolution 800x600)"
-            }
-        },
-        {
-            "label": "Launch MAME (debug)",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${env:MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debug)"
-            }
-        },
-        {
-            "label": "Launch MAME (gdbstub)",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${env:MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debugger gdbstub -debug)"
-            }
-        },
-        {
-            "label": "Launch z88dk-gdb",
-            "type": "shell",
-            "linux": {
-                "command": "(cd ${workspaceFolder}/dist && z88dk-gdb -h 127.0.0.1 -p 23946 -x ${workspaceFolder}/dist/example.map)"
-            }
-        },
-        {
-            "label": "Assemble",
-            "type": "shell",
-            "linux": {
-                "command": "zcc",
-                "args": [
-                    "+msx",
-                    "-subtype=rom",
-                    "-create-app",
-                    "-vn",
-                    "-m",
-                    "-o",
-                    "dist/example",
-                    "${workspaceFolder}/${relativeFile}"
-                ]
             }
         },
     ]
