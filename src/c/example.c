@@ -20,6 +20,8 @@
 extern unsigned char chars[];
 // 音楽・効果音のラベル参照（psgdriver.asm 用）
 extern uint8_t music_title[], music_main[], music_game_over[], sound_extend[], sound_get[];
+// サウンドステータス（ワークエリアから取得）
+extern uint8_t sounddrv_bgmwk[];
 
 // ゲームの状態遷移
 typedef enum {
@@ -37,6 +39,7 @@ typedef struct {
     uint16_t score;
     uint16_t score_hi;
     uint8_t stick_state;
+    uint8_t sound_play;
 } game_t;
 
 game_t game;
@@ -246,8 +249,8 @@ void game_init()
     // ステート表示
     print_state();
 
-    // サウンド再生
-    sounddrv_bgmplay(music_main);
+    // サウンドステータス初期化
+    game.sound_play = 0;
 
     // ゲームに遷移
     game.state = GAME_MAIN;
@@ -285,6 +288,17 @@ void game_main(uint8_t stick)
         game.stick_state = stick;
     }
 
+    // ファンファーレ再生終わり検知
+    if(game.sound_play == 2 && (sounddrv_bgmwk[3] + sounddrv_bgmwk[4]) == 0) {
+        game.sound_play = 0;
+    }
+    // メインミュージック再生
+    if(game.sound_play == 0) {
+        sounddrv_bgmplay(music_main);
+        // メインミュージック再生中
+        game.sound_play = 1;
+    }
+
     // tick per 6
     if(ball.tick++ % 6 != 0) return;
 
@@ -312,8 +326,10 @@ void game_main(uint8_t stick)
         print_state();
         // ネクストステージ
         if(game.remein_clear <= 0) {
-            // 効果音再生
-            sounddrv_sfxplay(sound_extend);
+            // ファンファーレ再生中
+            game.sound_play = 2;
+            // ファンファーレ再生
+            sounddrv_bgmplay(sound_extend);
             // ボム・ゴールド追加
             game_randam_block(20);
         }

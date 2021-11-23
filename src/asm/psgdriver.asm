@@ -9,12 +9,14 @@
 
 SECTION code_user
 
+; ponpon mod by h1romas4
 IFDEF __SCCZ80
 PUBLIC _sounddrv_init
 PUBLIC _sounddrv_exec
 PUBLIC _sounddrv_bgmplay
 PUBLIC _sounddrv_sfxplay
 PUBLIC _sounddrv_stop
+PUBLIC _sounddrv_bgmwk
 ENDIF
 
 ; ====================================================================================================
@@ -707,6 +709,7 @@ SOUNDDRV_WK_MIXING_NOISE:
 ; ----------------------------------------------------------------------------------------------------
 ; BGMワークエリア
 ; ----------------------------------------------------------------------------------------------------
+_sounddrv_bgmwk:                    ; ponpon mod by h1romas4
 SOUNDDRV_BGMWK:
     ; BGMトラック1(=ChA)
     DB  $00                         ; +0 ウェイトカウンタ(1音＝n/60秒)
