@@ -1,3 +1,5 @@
+; license:MIT License
+; copyright-holders:Hiromasa Tanaka
 _sound_extend:
     DB  0
     DW  _sound_extend_trk1

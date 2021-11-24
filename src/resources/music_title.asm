@@ -1,3 +1,5 @@
+; license:MIT License
+; copyright-holders:Hiromasa Tanaka
 _music_title:
     DB  0
     DW  _music_title_trk1
