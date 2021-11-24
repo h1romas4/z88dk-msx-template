@@ -3,7 +3,7 @@
         {
             "name": "z88dk",
             "includePath": [
-                "${workspaceFolder}/src/msx/*",
+                "${workspaceFolder}/src/c/*",
                 "${env:Z88DK_HOME}/include/*",
                 "${env:Z88DK_HOME}/include/**/*"
             ],
