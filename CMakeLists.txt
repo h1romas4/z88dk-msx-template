@@ -19,6 +19,8 @@ add_source_files(
 
 add_compile_flags(C
     +msx
+    -I$ENV{Z88DK_HOME}/include
+    -Isrc/c
     -vn
     -llib3d
     -lm
