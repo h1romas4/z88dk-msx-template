@@ -9,28 +9,33 @@
 
 SECTION code_user
 
-; ponpon mod by h1romas4
-IFDEF __SCCZ80
+; for C ABI
 PUBLIC _sounddrv_init
 PUBLIC _sounddrv_exec
 PUBLIC _sounddrv_bgmplay
 PUBLIC _sounddrv_sfxplay
 PUBLIC _sounddrv_stop
 PUBLIC _sounddrv_bgmwk
-ENDIF
+
+PUBLIC SOUNDDRV_INIT
+PUBLIC SOUNDDRV_EXEC
+PUBLIC SOUNDDRV_BGMPLAY
+PUBLIC SOUNDDRV_SFXPLAY
+PUBLIC SOUNDDRV_STOP
 
 ; ====================================================================================================
-; ドライバ初期化
+; DRIVER INITIALIZE
 ; ====================================================================================================
-_sounddrv_init:
-IFDEF __SCCZ80
+_sounddrv_init:                     ; for C ABI
+SOUNDDRV_INIT:
+    DI
     PUSH AF
     PUSH BC
     PUSH DE
     PUSH HL
-ENDIF
-
-    CALL GICINI                    ; GICINI PSGの初期化
+    PUSH IX
+    PUSH IY
+    CALL GICINI                     ; GICINI PSGの初期化
 
     ; ■音を出す設定
     LD A,7                          ; PSGレジスタ番号=7(チャンネル設定)
@@ -57,18 +62,19 @@ SOUNDDRV_INIT_2:
     INC HL
     DJNZ SOUNDDRV_INIT_2
 
-IFDEF __SCCZ80
+    POP IY
+    POP IX
     POP HL
     POP DE
     POP BC
     POP AF
-ENDIF
+    EI
 
     RET
 
 
 ; ====================================================================================================
-; BGM演奏開始
+; BGM PLAY
 ; IN  : HL = BGMデータの先頭アドレス
 ;            BGMデータの構成は以下とする
 ;              テンポ:1byte
@@ -76,12 +82,15 @@ ENDIF
 ;              トラック2のデータアドレス:2byte
 ;              トラック3のデータアドレス:2byte
 ; ====================================================================================================
-_sounddrv_bgmplay:
+_sounddrv_bgmplay:                  ; for C ABI
+SOUNDDRV_BGMPLAY:
     DI
     PUSH AF
     PUSH BC
     PUSH DE
     PUSH HL
+    PUSH IX
+    PUSH IY
 
     ; ■各チャンネルの初期設定
     PUSH HL
@@ -98,6 +107,8 @@ _sounddrv_bgmplay:
     LD A,SOUNDDRV_STATE_PLAY        ; サウンドドライバの状態を再生中にする
     LD (SOUNDDRV_STATE),A
 
+    POP IY
+    POP IX
     POP HL
     POP DE
     POP BC
@@ -108,7 +119,7 @@ _sounddrv_bgmplay:
 
 
 ; ====================================================================================================
-; SFX演奏開始
+; SFX PLAY
 ; IN  : HL = SFXデータの先頭アドレス
 ;            SFXデータの構成は以下とする
 ;              テンポ:1byte
@@ -116,12 +127,15 @@ _sounddrv_bgmplay:
 ;              トラック2のデータアドレス:2byte ゼロ=なし
 ;              トラック3のデータアドレス:2byte ゼロ=なし
 ; ====================================================================================================
-_sounddrv_sfxplay:
+_sounddrv_sfxplay:                  ; for C ABI
+SOUNDDRV_SFXPLAY:
     DI
     PUSH AF
     PUSH BC
     PUSH DE
     PUSH HL
+    PUSH IX
+    PUSH IY
 
     ; ■各チャンネルの初期設定
     PUSH HL
@@ -146,6 +160,8 @@ _sounddrv_sfxplay:
     LD (SOUNDDRV_STATE),A
 
 SOUNDDRV_SFXPLAY_EXIT:
+    POP IY
+    POP IX
     POP HL
     POP DE
     POP BC
@@ -200,14 +216,17 @@ SOUNDDRV_INITWK_L1:
 
 
 ; ====================================================================================================
-; 演奏停止
+; PLAY STOP
 ; ====================================================================================================
-_sounddrv_stop:
+_sounddrv_stop:                     ; for C ABI
+SOUNDDRV_STOP:
     DI
     PUSH AF
     PUSH BC
     PUSH DE
     PUSH HL
+    PUSH IX
+    PUSH IY
 
     LD A,SOUNDDRV_STATE_STOP
     LD (SOUNDDRV_STATE),A
@@ -235,6 +254,8 @@ SOUNDDRV_STOP_L2:
     LD (IX+15),$00                  ; プライオリティクリア
     DJNZ SOUNDDRV_STOP_L2
 
+    POP IY
+    POP IX
     POP HL
     POP DE
     POP BC
@@ -245,9 +266,10 @@ SOUNDDRV_STOP_L2:
 
 
 ; ====================================================================================================
-; 演奏処理
+; DRIVER EXECUTE
 ; ====================================================================================================
-_sounddrv_exec:
+_sounddrv_exec:                     ; for C ABI
+SOUNDDRV_EXEC:
     ; ■サウンドドライバのステータス判定
     LD A,(SOUNDDRV_STATE)           ; A <- サウンドドライバの状態
     OR A
@@ -373,9 +395,29 @@ SOUNDDRV_CHEXEC_CMD200:
     ; ■ボリューム設定処理
     ;   次のシーケンスデータを取得して、ワークエリアに設定すると同時にPSGレジスタ8～10に設定する
     ;   そして次のシーケンスデータの処理を行う
+;    CALL SOUNDDRV_GETNEXTNATA       ; A <- シーケンスデータ(ボリューム)
+;    LD (IX+7),A                     ; ボリューム値をワークに保存
+
+    LD A,D                          ; A <- D(トラック番号)
+    ADD A,4                         ; SFXトラックを調べるためにトラック番号にA=A+4する
+    CALL SOUNDDRV_GETWKADDR         ; HLに対象トラックの先頭アドレスを取得
+    INC HL                          ; @ToDo:トラックデータの先頭アドレスを求めることが多いので、ワークの持ち方を見直したい(毎回21ステートかかってる)
+    INC HL
+    INC HL
+    LD A,(HL)
+    INC HL
+    OR (HL)                         ; 対象トラックの先頭アドレス=$0000か
+    JR NZ,SOUNDDRV_CHEXEC_CMD200_1  ; ゼロでない場合はSFX再生中なのでCMD200_1へ
+
     CALL SOUNDDRV_GETNEXTNATA       ; A <- シーケンスデータ(ボリューム)
     LD (IX+7),A                     ; ボリューム値をワークに保存
     CALL SOUNDDRV_SETPSG_VOLUME     ; PSGレジスタ8～10設定
+
+    JP SOUNDDRV_CHEXEC_L2
+
+SOUNDDRV_CHEXEC_CMD200_1:
+    CALL SOUNDDRV_GETNEXTNATA       ; A <- シーケンスデータ(ボリューム)
+    LD (IX+7),A                     ; ボリューム値をワークに保存
 
     JP SOUNDDRV_CHEXEC_L2
 
@@ -709,7 +751,7 @@ SOUNDDRV_WK_MIXING_NOISE:
 ; ----------------------------------------------------------------------------------------------------
 ; BGMワークエリア
 ; ----------------------------------------------------------------------------------------------------
-_sounddrv_bgmwk:                    ; ponpon mod by h1romas4
+_sounddrv_bgmwk:                    ; for C ABI
 SOUNDDRV_BGMWK:
     ; BGMトラック1(=ChA)
     DB  $00                         ; +0 ウェイトカウンタ(1音＝n/60秒)

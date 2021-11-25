@@ -401,11 +401,22 @@ void main()
     // サウンドドライバー初期化
     sounddrv_init();
     // サウンドドライバーフック設定
+    // __INTELLISENSE__ 判定は vscode で非標準インラインアセンブル構文をエラーにしないように挿入
+    #ifndef __INTELLISENSE__
+    __asm
+    DI
+    __endasm;
+    #endif
     uint8_t *h_time = (uint8_t *)MSX_H_TIMI;
     uint16_t hook = (uint16_t)sounddrv_exec;
     h_time[0] = 0xc3; // JP
     h_time[1] = (uint8_t)(hook & 0xff);
     h_time[2] = (uint8_t)((hook & 0xff00) >> 8);
+    #ifndef __INTELLISENSE__
+    __asm
+    EI
+    __endasm;
+    #endif
 
     // ゲームステート初期化
     game.state = TITLE_INIT;
