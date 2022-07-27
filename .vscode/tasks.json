@@ -46,5 +46,19 @@
                 "command": "openmsx-debugger"
             }
         },
+        {
+          "label": "Launch MAME with debugger",
+          "type": "shell",
+          "linux": {
+              "command": "(cd ${MAME_HOME} && ./cbios cbios example -window -debugger gdbstub -debug)"
+          }
+        },
+        {
+          "label": "Deploy to MAME",
+          "type": "shell",
+          "linux": {
+              "command": "(cd ${workspaceFolder}/dist && rm -f example.zip && zip -u example.zip example.rom) && cp -p ${workspaceFolder}/dist/example.zip ${MAME_HOME}/roms/msx1_cart/"
+          }
+        }
     ]
 }

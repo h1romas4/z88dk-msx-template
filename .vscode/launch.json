@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+          "name": "Attach to MAME gdbserver",
+          "type": "gdb",
+          "request": "attach",
+          "target": "127.0.0.1:23946",
+          "remote": true,
+          "cwd": "${workspaceRoot}",
+          "gdbpath": "${env:Z88DK_HOME}/bin/z88dk-gdb",
+          "debugger_args": [
+            "-x",
+            "${workspaceRoot}/dist/example.map" // or appropriate .map of your project (-m -debug needed!)
+          ],
+          "autorun": [
+          ]
+      }
+    ]
+}

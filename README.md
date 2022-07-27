@@ -187,3 +187,32 @@ Connected to the server.
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-01.png)
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-02.png)
+
+VSCode Attach
+
+`.vscode/launch.json`
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+          "name": "Attach to MAME gdbserver",
+          "type": "gdb",
+          "request": "attach",
+          "target": "127.0.0.1:23946",
+          "remote": true,
+          "cwd": "${workspaceRoot}",
+          "gdbpath": "${env:Z88DK_HOME}/bin/z88dk-gdb",
+          "debugger_args": [
+            "-x",
+            "${workspaceRoot}/dist/example.map" // or appropriate .map of your project (-m -debug needed!)
+          ],
+          "autorun": [
+          ]
+      }
+    ]
+}
+```
+
+![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-03.png)
