@@ -49,6 +49,9 @@
         {
           "label": "Launch MAME with debugger",
           "type": "shell",
+          "dependsOn":[
+            "Deploy for MAME"
+          ],
           "linux": {
               "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -window -debugger gdbstub -debug)"
           }
