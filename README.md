@@ -131,14 +131,14 @@ Run MAME
 ```
 $ cd ${MSX_HOME}
 $ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
-    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash)
+    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash)
 ```
 
 or Debug launch
 
 ```
 $ (cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
-    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash \
+    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash \
     -debug)
 ```
 
@@ -192,7 +192,7 @@ Run MAME with gdbstub
 ```
 $ cd ${MSX_HOME}
 $ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
-    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash \
+    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash \
     -debugger gdbstub -debug)
 gdbstub: listening on port 23946
 ```

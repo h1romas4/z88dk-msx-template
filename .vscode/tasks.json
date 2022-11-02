@@ -50,7 +50,7 @@
           "label": "Launch MAME with debugger",
           "type": "shell",
           "linux": {
-              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms/msx1_cart -hashpath ${workspaceFolder}/mics/mame/hash -window -debugger gdbstub -debug)"
+              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -window -debugger gdbstub -debug)"
           }
         },
         {

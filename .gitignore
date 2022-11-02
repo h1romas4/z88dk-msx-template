@@ -2,4 +2,4 @@ build/
 dist/
 .tmp/
 .ticks_history.txt
-mics/mame/roms/msx1_cart/*.zip
+mics/mame/roms/
