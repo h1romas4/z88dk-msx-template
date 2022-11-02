@@ -130,14 +130,14 @@ Run MAME
 
 ```
 $ cd ${MSX_HOME}
-(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
+$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
     -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash)
 ```
 
 or Debug launch
 
 ```
-(cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
+$ (cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
     -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash \
     -debug)
 ```
