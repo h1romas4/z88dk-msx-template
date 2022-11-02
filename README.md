@@ -98,7 +98,7 @@ Apply patch
 
 ## Run with MAME
 
-First step (Create MSX virtual machine with cbios)
+First step (Create MSX virtual machine with `cbios`)
 
 - [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
@@ -130,13 +130,16 @@ Run MAME
 
 ```
 $ cd ${MSX_HOME}
-(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash)
+(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
+    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash)
 ```
 
 or Debug launch
 
 ```
-(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash -debug)
+(cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
+    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash \
+    -debug)
 ```
 
 ## Run with MAME (z88dk-gdb)
@@ -188,7 +191,9 @@ Run MAME with gdbstub
 
 ```
 $ cd ${MSX_HOME}
-$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash -debugger gdbstub -debug)
+$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
+    -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash \
+    -debugger gdbstub -debug)
 gdbstub: listening on port 23946
 ```
 
