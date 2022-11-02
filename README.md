@@ -98,53 +98,45 @@ Apply patch
 
 ## Run with MAME
 
-First step
+First step (Create MSX virtual machine with cbios)
 
 - [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
-Set MAME_HOME on `~/.bashrc`
+Set Enviroments
 
 ```
 export MAME_HOME=/home/hiromasa/devel/amd64/mame
+export MSX_HOME=$(pwd)
 ```
 
-Add example software section to `${MAME_HOME}/hash/msx1_cart.xml`
+Verify
 
 ```
-$ vi ${MAME_HOME}/hash/msx1_cart.xml
-
-	<software name="example">
-		<description>example</description>
-		<year>2021</year>
-		<publisher>example</publisher>
-		<info name="serial" value="01" />
-		<info name="alt_title" value="example" />
-		<part name="cart" interface="msx_cart">
-			<dataarea name="rom" size="16384">
-				<rom name="example.rom" size="16384" crc="4e20d256" sha1="33536dac686b375ba13faf76a3baf2d6978904e0" offset="0x0" />
-			</dataarea>
-		</part>
-	</software>
+$ ls -laF ${MAME_HOME}/cbios
+-rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
 ```
 
-Deploy ROM to MAME
+Deploy ROM for MAME
 
 ```
+$ cd ${MSX_HOME}
 $ ls -laF dist/*.rom
 -rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
-$ zip -j -u ${MAME_HOME}/roms/msx1_cart/example.zip ./dist/example.rom
+$ cd dist
+$ zip -j ../mics/mame/roms/msx1_cart/example.zip example.rom
 ```
 
 Run MAME
 
 ```
-(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600)
+$ cd ${MSX_HOME}
+(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash)
 ```
 
 or Debug launch
 
 ```
-(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debug)
+(cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash -debug)
 ```
 
 ## Run with MAME (z88dk-gdb)
@@ -168,18 +160,43 @@ add_compile_flags(C
 )
 ```
 
+Set Enviroments
+
+```
+export MAME_HOME=/home/hiromasa/devel/amd64/mame
+export MSX_HOME=$(pwd)
+```
+
+Verify
+
+```
+$ ls -laF ${MAME_HOME}/cbios
+-rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
+```
+
+Deploy debug ROM for MAME
+
+```
+$ cd ${MSX_HOME}
+$ ls -laF dist/*.rom
+-rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
+$ cd dist
+$ zip -j ../mics/mame/roms/msx1_cart/example.zip example.rom
+```
+
 Run MAME with gdbstub
 
 ```
-$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -debugger gdbstub -debug)
+$ cd ${MSX_HOME}
+$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 -rompath ${MSX_HOME}/mics/mame/roms/msx1_cart -hashpath ${MSX_HOME}/mics/mame/hash -debugger gdbstub -debug)
 gdbstub: listening on port 23946
 ```
 
 Connect z88dk-gdb to MAME
 
 ```
-$ cd dist # Match the path to the source code in the .map file(../src/msx/example.c).
-$ z88dk-gdb -h 127.0.0.1 -p 23946 -x example.map
+$ cd ${MSX_HOME}
+$ z88dk-gdb -h 127.0.0.1 -p 23946 -x dist/example.map
 Reading debug symbols...OK
 Connected to the server.
 ```
