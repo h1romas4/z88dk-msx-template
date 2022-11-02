@@ -233,3 +233,5 @@ VSCode Attach
 ```
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-03.png)
+
+As of 2022-7, "Step Over" does not seem to return the operation. "Continue" and "Step into" work well, so please use them interchangeably.
