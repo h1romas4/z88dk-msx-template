@@ -50,14 +50,14 @@
           "label": "Launch MAME with debugger",
           "type": "shell",
           "linux": {
-              "command": "(cd ${MAME_HOME} && ./cbios cbios example -window -debugger gdbstub -debug)"
+              "command": "(cd ${MAME_HOME} && ./hbf1 hbf1 example -rompath ${workspaceFolder}/mics/mame/roms/msx1_cart -hashpath ${workspaceFolder}/mics/mame/hash -window -debugger gdbstub -debug)"
           }
         },
         {
-          "label": "Deploy to MAME",
+          "label": "Deploy for MAME",
           "type": "shell",
           "linux": {
-              "command": "(cd ${workspaceFolder}/dist && rm -f example.zip && zip -u example.zip example.rom) && cp -p ${workspaceFolder}/dist/example.zip ${MAME_HOME}/roms/msx1_cart/"
+              "command": "(cd dist/ && rm -f ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip && zip -j ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip example.rom)"
           }
         }
     ]
