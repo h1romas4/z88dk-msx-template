@@ -47,13 +47,23 @@
             }
         },
         {
+          "label": "Launch MAME",
+          "type": "shell",
+          "dependsOn":[
+            "Deploy for MAME"
+          ],
+          "linux": {
+              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -cfg_directory ${workspaceFolder}/mics/mame/cfg -window -resolution 800x600 -video soft -nofilter)"
+          }
+        },
+        {
           "label": "Launch MAME with debugger",
           "type": "shell",
           "dependsOn":[
             "Deploy for MAME"
           ],
           "linux": {
-              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -window -debugger gdbstub -debug)"
+              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -cfg_directory ${workspaceFolder}/mics/mame/cfg -window -resolution 800x600 -video soft -nofilter -debugger gdbstub -debug)"
           }
         },
         {
