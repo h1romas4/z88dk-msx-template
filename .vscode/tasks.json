@@ -53,7 +53,7 @@
             "Deploy for MAME"
           ],
           "linux": {
-              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -cfg_directory ${workspaceFolder}/mics/mame/cfg -window -resolution 800x600 -video soft -nofilter)"
+              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -window -resolution 800x600 -video soft -nofilter)"
           }
         },
         {
@@ -63,7 +63,7 @@
             "Deploy for MAME"
           ],
           "linux": {
-              "command": "(cd ${MAME_HOME} && ./cbios cbios example -rompath ${workspaceFolder}/mics/mame/roms -hashpath ${workspaceFolder}/mics/mame/hash -cfg_directory ${workspaceFolder}/mics/mame/cfg -window -resolution 800x600 -video soft -nofilter -debugger gdbstub -debug)"
+              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -window -resolution 800x600 -video soft -nofilter -debugger gdbstub -debug)"
           }
         },
         {

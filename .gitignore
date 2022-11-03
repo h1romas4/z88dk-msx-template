@@ -3,3 +3,5 @@ dist/
 .tmp/
 .ticks_history.txt
 mics/mame/roms/
+mics/mame/nvram/
+mics/mame/cbios
