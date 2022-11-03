@@ -103,18 +103,23 @@ Apply patch
 
 First step (Create MSX virtual machine as `cbios`)
 
-MAME build
+Build MAME with cbios
 
-- [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
+@see [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
-Set Enviroments
+Copy executable binary from MAME
 
 ```
-$ export MAME_HOME=/home/hiromasa/devel/amd64/mame
+$ MAME_HOME=/home/hiromasa/devel/amd64/mame
 $ ls -laF ${MAME_HOME}/cbios
 -rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
 $ cp -p ${MAME_HOME}/cbios ./mics/mame
 ```
+
+Extract C-BIOS
+
+- Download C-BIOS - [cbios-0.29a.zip](https://sourceforge.net/projects/cbios/files/cbios/0.29/)
+- Extract to `mics/mame/roms/cbios`
 
 Deploy ROM for MAME
 
