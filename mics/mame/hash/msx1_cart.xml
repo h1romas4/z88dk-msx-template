@@ -9,7 +9,7 @@
 		<info name="alt_title" value="example" />
 		<part name="cart" interface="msx_cart">
 			<dataarea name="rom" size="16384">
-				<rom name="example.rom" size="16384" crc="4e20d256" sha1="33536dac686b375ba13faf76a3baf2d6978904e0" offset="0x0" />
+				<rom name="example.rom" size="16384" crc="4e20d256" sha1="9a07e36719ca1cddde62853fefff7c9c43ad80d2" offset="0x0" />
 			</dataarea>
 		</part>
 	</software>
