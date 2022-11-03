@@ -25,6 +25,7 @@ MIT License
 - [openMSX](https://openmsx.org/) - Emulator
 - [C-BIOS](http://cbios.sourceforge.net/) - MSX Open Source BIOS
 - [Native Debug](https://github.com/WebFreak001/code-debug) -  Native debugging for VSCode
+- [DeZog](https://github.com/maziac/DeZog) - Visual Studio Code Debugger for Z80/ZX Spectrum.
 
 ## Build Require
 
