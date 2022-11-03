@@ -98,7 +98,7 @@ Apply patch
 
 ## Run with MAME
 
-First step (Create MSX virtual machine with `cbios`)
+First step (Create MSX virtual machine as `cbios`)
 
 - [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
