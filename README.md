@@ -24,6 +24,7 @@ MIT License
 - [MAME](https://www.mamedev.org/) - Emulator
 - [openMSX](https://openmsx.org/) - Emulator
 - [C-BIOS](http://cbios.sourceforge.net/) - MSX Open Source BIOS
+- [Native Debug](https://github.com/WebFreak001/code-debug) -  Native debugging for VSCode
 
 ## Build Require
 
@@ -102,26 +103,22 @@ Apply patch
 
 First step (Create MSX virtual machine as `cbios`)
 
+MAME build
+
 - [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
 
 Set Enviroments
 
 ```
-export MAME_HOME=/home/hiromasa/devel/amd64/mame
-export MSX_HOME=$(pwd)
-```
-
-Verify
-
-```
+$ export MAME_HOME=/home/hiromasa/devel/amd64/mame
 $ ls -laF ${MAME_HOME}/cbios
 -rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
+$ cp -p ${MAME_HOME}/cbios ./mics/mame
 ```
 
 Deploy ROM for MAME
 
 ```
-$ cd ${MSX_HOME}
 $ ls -laF dist/*.rom
 -rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
 $ cd dist
@@ -131,19 +128,8 @@ $ zip -j ../mics/mame/roms/msx1_cart/example.zip example.rom
 Run MAME
 
 ```
-$ cd ${MSX_HOME}
-$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
-    ${MSX_HOME}/mics/mame/cfg \
-    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash)
-```
-
-or Debug launch
-
-```
-$ (cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
-    ${MSX_HOME}/mics/mame/cfg \
-    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash \
-    -debug)
+$ cd mics/mame
+$ ./cbios cbios example
 ```
 
 ## Run with MAME (z88dk-gdb)
@@ -176,24 +162,11 @@ cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake ..
 make
 ```
 
-Set Enviroments
-
-```
-export MAME_HOME=/home/hiromasa/devel/amd64/mame
-export MSX_HOME=$(pwd)
-```
-
 Verify
-
-```
-$ ls -laF ${MAME_HOME}/cbios
--rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
-```
 
 Deploy debug ROM for MAME
 
 ```
-$ cd ${MSX_HOME}
 $ ls -laF dist/*.rom
 -rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
 $ cd dist
@@ -203,18 +176,14 @@ $ zip -j ../mics/mame/roms/msx1_cart/example.zip example.rom
 Run MAME with gdbstub
 
 ```
-$ cd ${MSX_HOME}
-$ (cd ${MAME_HOME} && ./cbios cbios example -window -resolution 800x600 \
-    ${MSX_HOME}/mics/mame/cfg \
-    -rompath ${MSX_HOME}/mics/mame/roms -hashpath ${MSX_HOME}/mics/mame/hash \
-    -debugger gdbstub -debug)
+$ cd mics/mame
+$ ./cbios cbios example -debugger gdbstub -debug
 gdbstub: listening on port 23946
 ```
 
 Connect z88dk-gdb to MAME
 
 ```
-$ cd ${MSX_HOME}
 $ z88dk-gdb -h 127.0.0.1 -p 23946 -x dist/example.map
 Reading debug symbols...OK
 Connected to the server.
@@ -224,7 +193,10 @@ Connected to the server.
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-02.png)
 
-VSCode Attach
+VSCode Attach ([Native Debug](https://github.com/WebFreak001/code-debug))
+
+- The breakpoint rows may shift, so try setting breakpoints after startup.
+- As of 2022-7, "Step Over" does not seem to return the operation. "Continue" and "Step into" work well, so please use them interchangeably.
 
 `.vscode/launch.json`
 
@@ -252,5 +224,3 @@ VSCode Attach
 ```
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/z88dk-gdb-03.png)
-
-As of 2022-7, "Step Over" does not seem to return the operation. "Continue" and "Step into" work well, so please use them interchangeably.
