@@ -148,7 +148,7 @@ $ (cd ${MAME_HOME} && ./hbf1 hbf1 example -window -resolution 800x600 \
 
 ## Run with MAME (z88dk-gdb)
 
-Enable `-debug` flag and re-build
+Enable `-debug` flag
 
 `CMakefiles.txt`
 
@@ -165,6 +165,15 @@ add_compile_flags(C
     # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
     -DAMALLOC
 )
+```
+
+Build with debug
+
+```
+rm -Rf build/
+mkdir build && cd build
+cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake ..
+make
 ```
 
 Set Enviroments
