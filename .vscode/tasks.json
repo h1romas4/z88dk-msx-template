@@ -53,7 +53,7 @@
             "Deploy for MAME"
           ],
           "linux": {
-              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -window -resolution 800x600 -video soft -nofilter)"
+              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example)"
           }
         },
         {
@@ -63,7 +63,7 @@
             "Deploy for MAME"
           ],
           "linux": {
-              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -window -resolution 800x600 -video soft -nofilter -debugger gdbstub -debug)"
+              "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -debugger gdbstub -debug)"
           }
         },
         {
