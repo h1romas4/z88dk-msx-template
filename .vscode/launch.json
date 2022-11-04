@@ -31,7 +31,7 @@
         "z88dk": [
             {
               "mainFile": "psgdriver.asm",
-              "path": "./src/asm/psgdriver.asm.lis",
+              "path": "${workspaceFolder}/src/asm/psgdriver.asm.lis",
               "mapFile": "${workspaceFolder}/dist/example.map",
               "srcDirs": ["${workspaceFolder}/src/asm"]	// Sources mode
             }
