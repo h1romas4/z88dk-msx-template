@@ -31,12 +31,16 @@
         "z88dk": [
             {
               "mainFile": "psgdriver.asm",
-              "path": "${workspaceFolder}/src/asm/psgdriver.asm.lis",
+              "path": "./src/asm/psgdriver.asm.lis",
               "mapFile": "${workspaceFolder}/dist/example.map",
               "srcDirs": ["${workspaceFolder}/src/asm"]	// Sources mode
             }
         ],
-        "rootFolder": "${workspaceFolder}"
+        "rootFolder": "${workspaceFolder}",
+        "commandsAfterLaunch": [
+          "-rmv",
+          // "-mv 0xc000 0x100"
+        ],
      }
     ]
 }
