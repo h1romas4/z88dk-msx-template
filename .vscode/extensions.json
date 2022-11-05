@@ -3,7 +3,7 @@
       "ms-vscode.cpptools",
       "ms-vscode.cmake-tools",
       "EditorConfig.EditorConfig",
-      "mborik.z80-macroasm",
+      "maziac.asm-code-lens",
       "webfreak.debug"
   ]
 }
