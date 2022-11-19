@@ -28,12 +28,11 @@
         "mame": {
           "port": 23946
         },
-        "z88dk": [
+        "z88dkv2": [
             {
-              "mainFile": "psgdriver.asm",
-              "path": "${workspaceFolder}/src/asm/psgdriver.asm.lis",
-              "mapFile": "${workspaceFolder}/dist/example.map",
-              "srcDirs": ["${workspaceFolder}/src/asm"]	// Sources mode
+              "path": "src/asm/psgdriver.asm.lis",
+              "mapFile": "dist/example.map",
+              "srcDirs": [""]	// Sources mode
             }
         ],
         "rootFolder": "${workspaceFolder}",
@@ -41,6 +40,6 @@
           "-rmv",
           // "-mv 0xc000 0x100"
         ],
-     }
+      }
     ]
 }
