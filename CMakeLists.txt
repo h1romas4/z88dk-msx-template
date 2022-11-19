@@ -34,6 +34,7 @@ add_compile_flags(C
 
 add_compile_flags(ASM
     +msx
+    --list
 )
 
 add_compile_flags(LD

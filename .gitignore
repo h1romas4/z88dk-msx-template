@@ -1,6 +1,7 @@
 build/
 dist/
 .tmp/
+src/asm/*.lis
 .ticks_history.txt
 mics/mame/roms/
 mics/mame/nvram/

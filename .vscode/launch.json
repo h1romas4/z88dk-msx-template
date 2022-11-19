@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
           "name": "Attach to MAME gdbserver",
           "type": "gdb",
@@ -18,6 +19,27 @@
           ],
           "autorun": [
           ]
+      },
+      {
+        "type": "dezog",
+        "request": "launch",
+        "name": "DeZog",
+        "remoteType": "mame",
+        "mame": {
+          "port": 23946
+        },
+        "z88dkv2": [
+            {
+              "path": "src/asm/psgdriver.asm.lis",
+              "mapFile": "dist/example.map",
+              "srcDirs": [""]	// Sources mode
+            }
+        ],
+        "rootFolder": "${workspaceFolder}",
+        "commandsAfterLaunch": [
+          "-rmv",
+          // "-mv 0xc000 0x100"
+        ],
       }
     ]
 }
