@@ -4,6 +4,7 @@
       "ms-vscode.cmake-tools",
       "EditorConfig.EditorConfig",
       "maziac.asm-code-lens",
+      "maziac.dezog", // 3.0 or higher
       "webfreak.debug"
   ]
 }
