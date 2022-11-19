@@ -28,7 +28,7 @@
         "mame": {
           "port": 23946
         },
-        "z88dkv2": [
+        "z88dkv2": [ // Z88DK 2.2 and DeZog 3.0 or higher
             {
               "path": "src/asm/psgdriver.asm.lis",
               "mapFile": "dist/example.map",
