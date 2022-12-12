@@ -6,7 +6,7 @@ This repository contains sample games made with [Z88DK](https://github.com/z88dk
 
 @see [Z88DK を使って MSX のゲームをつくるための環境構築メモ](https://maple4estry.netlify.app/z88dk-msx/)
 
-[Playable by WebMSX](https://webmsx.org/cbios/?MACHINE=MSX2J&ROM=https://github.com/h1romas4/z88dk-msx-template/releases/download/v1.5.1/example.rom)
+[Playable by WebMSX](https://webmsx.org/?MACHINE=MSX2J&ROM=https://github.com/h1romas4/z88dk-msx-template/releases/download/v1.5.1/example.rom)
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/ponpon-01.png)
 
