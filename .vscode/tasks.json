@@ -28,6 +28,7 @@
     {
         "label": "Run Build (make)",
         "type": "shell",
+        "dependsOn": "Clean Build (make)",
         "linux": {
             "command": "(cd ${workspaceFolder}/build && make)"
         }
@@ -69,6 +70,7 @@
     {
       "label": "Deploy for MAME",
       "type": "shell",
+      "dependsOn": "Run Build (make)",
       "linux": {
           "command": "(cd dist/ && rm -f ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip && zip -j ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip example.rom)"
       }
