@@ -100,45 +100,11 @@ Apply patch
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/openmsx-debugger-01.png)
 
-## Run with MAME
-
-First step (Create MSX virtual machine as `cbios`)
-
-Build MAME with cbios
-
-@see [MSX ゲーム開発を MAME/C-BIOS で行うメモ](https://maple4estry.netlify.app/mame-msx-cbios/)
-
-Copy executable binary from MAME
-
-```
-$ MAME_HOME=/home/hiromasa/devel/amd64/mame
-$ ls -laF ${MAME_HOME}/cbios
--rwxrwxr-x 1 hiromasa hiromasa 70065896  7月 25 14:04 /home/hiromasa/devel/amd64/mame/cbios*
-$ cp -p ${MAME_HOME}/cbios ./mics/mame
-```
-
-Extract C-BIOS
-
-- Download C-BIOS - [cbios-0.29a.zip](https://sourceforge.net/projects/cbios/files/cbios/0.29/)
-- Extract to `mics/mame/roms/cbios`
-
-Deploy ROM for MAME
-
-```
-$ ls -laF dist/*.rom
--rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
-$ cd dist
-$ zip -j ../mics/mame/roms/msx1_cart/example.zip example.rom
-```
-
-Run MAME
-
-```
-$ cd mics/mame
-$ ./cbios cbios example
-```
-
 ## Run with MAME (z88dk-gdb)
+
+Setup MAME
+
+@see [DeZog + Z88DK + MAME で MSX アセンブリーをデバッグする手順](https://maple4estry.netlify.app/dezog-mame-msx/)
 
 Enable `-debug` flag
 
@@ -183,7 +149,7 @@ Run MAME with gdbstub
 
 ```
 $ cd mics/mame
-$ ./cbios cbios example -debugger gdbstub -debug
+$ ./mame cbiosm1jp example -debugger gdbstub -debug
 gdbstub: listening on port 23946
 ```
 
