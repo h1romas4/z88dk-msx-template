@@ -54,7 +54,7 @@
         "Deploy for MAME"
       ],
       "linux": {
-          "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example)"
+          "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbios example)"
       }
     },
     {
@@ -64,7 +64,7 @@
         "Deploy for MAME"
       ],
       "linux": {
-          "command": "(cd ${workspaceFolder}/mics/mame && ./cbios cbios example -debugger gdbstub -debug)"
+          "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbios example -debugger gdbstub -debug)"
       }
     },
     {
