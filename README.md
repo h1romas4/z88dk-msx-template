@@ -1,6 +1,6 @@
 # Z88DK MSX build template with sample game
 
-![](https://github.com/h1romas4/z88dk-msx-template/workflows/Build/badge.svg)
+![](https://github.com/h1romas4/z88dk-msx-template/workflows/Build/badge.svg) ![](https://github.com/h1romas4/z88dk-msx-template/workflows/Release/badge.svg)
 
 This repository contains sample games made with [Z88DK](https://github.com/z88dk/z88dk), [MAME](https://www.mamedev.org/) and [C-BIOS](http://cbios.sourceforge.net/).
 
