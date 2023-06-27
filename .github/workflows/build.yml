@@ -1,15 +1,15 @@
-name: Release
+name: Build
 
 on:
   push:
-    tags:
-    - '*'
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
     uses: ./.github/workflows/build-release.yml
     with:
-      release: true
+      release: false
