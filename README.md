@@ -34,7 +34,7 @@ MIT License
 - Ubuntu 24.04 LTS or Ubuntu 22.04 LTS or Windows WSL2
 - Z88DK v2.2
     - Setup [Z88DK](https://github.com/z88dk/z88dk/wiki/installation#linux--unix)
-    - [.github/workflows/build-release.yml]()
+    - [.github/workflows/build-release.yml](https://github.com/h1romas4/z88dk-msx-template/blob/833b328d5be6da5c8071ae7fa85b6f0d8f48729c/.github/workflows/build-release.yml#L20-L45)
 - cmake (`sudo apt install cmake`)
 
 Set enviroments on `~/.bashrc`
@@ -91,12 +91,6 @@ $ ls -laF dist/*.rom
 -rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
 $ openmsx dist/example.rom
 ```
-
-Debug ([openmsx-debugger](https://github.com/openMSX/debugger))
-
-![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/openmsx-debugger-02.png)
-
-![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/openmsx-debugger-01.png)
 
 ## Run with MAME (z88dk-gdb)
 
