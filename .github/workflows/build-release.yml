@@ -4,43 +4,65 @@ on:
   workflow_call:
     inputs:
       release:
-        description: 'release'
+        description: "release"
         type: boolean
         required: true
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: recursive
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Z88DK Toolchain Setup
-      run: |
-        sudo snap install z88dk --beta
-        sudo apt install cmake ninja-build
+      - name: Cache z88dk, ccache and cpanm
+        uses: actions/cache@v4
+        id: z88dk-cache
+        with:
+          path: |
+            z88dk
+          key: z88dk-${{ runner.os }}-v2.2-6c884916
 
-    - name: Build
-      run: |
-        export Z88DK_HOME=/snap/z88dk/current
-        export ZCCCFG=${Z88DK_HOME}/share/z88dk/lib/config
-        export PATH=${Z88DK_HOME}/bin:${PATH}
-        mkdir build
-        cd build
-        /usr/bin/cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake -GNinja ..
-        ninja
+      - name: Setup Build Container
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build
+          sudo apt-get install -y ragel re2c dos2unix texinfo texi2html gdb curl cpanminus ccache libboost-all-dev libmodern-perl-perl libyaml-perl liblocal-lib-perl libcapture-tiny-perl libpath-tiny-perl libtest-differences-perl libtext-table-perl libdata-hexdump-perl libregexp-common-perl libclone-perl
 
-    - name: Check
-      run: |
-        TARGET=dist/example.rom
-        ls -laF ${TARGET}
-        file ${TARGET} | grep 'MSX ROM' | grep '0x4010'
-        md5sum ${TARGET}
+      - name: Z88DK Toolchain Setup
+        if: steps.z88dk-cache.outputs.cache-hit != 'true'
+        run: |
+          cpanm App::Prove Capture::Tiny::Extended CPU::Z80::Assembler Data::HexDump File::Path List::Uniq Modern::Perl Object::Tiny::RW Test::Cmd Test::Cmd::Common Test::Harness Test::HexDifferences Text::Table YAML::Tiny
+          eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
+          git clone --depth 1 --branch v2.2 https://github.com/z88dk/z88dk.git
+          cd z88dk
+          git submodule update --init --recursive --depth 1
+          ./build.sh
+          ls -laF bin/
+          cd -
+          ls -laF
 
-    - uses: ncipollo/release-action@v1
-      if: ${{ inputs.release }}
-      with:
-        artifacts: "dist/example.rom"
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: |
+          export Z88DK_HOME=$(pwd)/z88dk
+          export ZCCCFG=${Z88DK_HOME}/lib/config
+          export PATH=${Z88DK_HOME}/bin:${PATH}
+          mkdir build
+          cd build
+          /usr/bin/cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake -GNinja ..
+          ninja
+
+      - name: Check
+        run: |
+          TARGET=dist/example.rom
+          ls -laF ${TARGET}
+          file ${TARGET} | grep 'MSX ROM' | grep '0x4010'
+          sha256sum ${TARGET} | tee ${TARGET}.sha256
+
+      - uses: ncipollo/release-action@v1
+        if: ${{ inputs.release }}
+        with:
+          artifacts: "dist/example.rom, dist/example.rom.sha256"
+          token: ${{ secrets.GITHUB_TOKEN }}

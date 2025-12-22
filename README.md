@@ -27,10 +27,14 @@ MIT License
 - [Native Debug](https://github.com/WebFreak001/code-debug) -  Native debugging for VSCode
 - [DeZog](https://github.com/maziac/DeZog) - Visual Studio Code Debugger for Z80/ZX Spectrum.
 
-## Build Require
+## Build
 
-- Ubuntu 20.04|22.04 LTS or Windows WSL2
-- Setup [Z88DK](https://github.com/z88dk/z88dk/wiki/installation#linux--unix)
+### Require
+
+- Ubuntu 24.04 LTS or Ubuntu 22.04 LTS or Windows WSL2
+- Z88DK v2.2
+    - Setup [Z88DK](https://github.com/z88dk/z88dk/wiki/installation#linux--unix)
+    - [.github/workflows/build-release.yml]()
 - cmake (`sudo apt install cmake`)
 
 Set enviroments on `~/.bashrc`
@@ -57,7 +61,7 @@ Usage: zcc +[target] {options} {files}
    -h -help                     Display this text
 ```
 
-## Build
+### Build
 
 Compile
 
@@ -89,12 +93,6 @@ $ openmsx dist/example.rom
 ```
 
 Debug ([openmsx-debugger](https://github.com/openMSX/debugger))
-
-Apply patch
-
--  [openmsx-debugger で z88dk の -m 形式の .map symbol を読ませる hack + Ubuntu 20.04 LTS Qt 5.14 Obsolete fix](https://gist.github.com/h1romas4/5f6579fcaad77cab3413ff437188a2f2)
-
--  [Ubuntu 22.04 LTS 版の openmsx-debugger で z88dk の -m 形式の .map symbol を読ませる hack](https://gist.github.com/h1romas4/9fdbcd45c4d6bdd87312dc3ca83059be)
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/openmsx-debugger-02.png)
 
