@@ -37,6 +37,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/c
     ${CMAKE_SOURCE_DIR}/src/asm
     $ENV{Z88DK_HOME}/include
+    $ENV{Z88DK_HOME}/include/_DEVELOPMENT/sccz80
 )
 
 # Basic compile options
