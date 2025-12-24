@@ -1,0 +1,57 @@
+CompileFlags:
+    CompilationDatabase: build
+
+# Example Z88DK/MSX global clangd configuration (commented)
+# This example is intended to be placed in your global clangd configuration
+# so the same settings apply to both Z88DK toolchain headers and your project
+# source files. Using a global config ensures clangd sees consistent compiler
+# options for toolchain-provided headers and project files (the block uses
+# `PathMatch` to target MSX/Z88DK files).
+# The block supplies compiler flags for the `zcc` toolchain; copy or merge it
+# into your global clangd config, adjust flags as needed, and uncomment to enable.
+#
+# Note: this repository includes `z88dkv24-clangd.patch` which applies a few
+# fixes/workarounds to upstream Z88DK headers (for example, adding guards
+# for IntelliSense and removing stray characters). If you depend on those
+# changes keep the patch applied, or adapt flags here accordingly — see the
+# `-D__INTELLISENSE__` entry below for a related flag added for clangd.
+#
+# Windows:
+#  %LocalAppData%\clangd\config.yaml,
+#   typically C:\Users\Bob\AppData\Local\clangd\config.yaml.
+# Linux:
+#  ~/.config/clangd/config.yaml
+# macOS:
+#  ~/Library/Preferences/clangd/config.yaml
+#
+# If:
+#   PathMatch:
+#     - /.+/devel/msx/.+\.h$
+#     - /.+/devel/msx/.+\.c$
+# CompileFlags:
+#   Compiler: zcc
+#   Remove:
+#     - "+msx"
+#     - "-vn"
+#     - "-m"
+#     - "--list"
+#     - "-debug"
+#   Add:
+#     - -std=c11
+#     - -Wno-implicit-int
+#     - "-DMSX"
+#     - "-DSCCZ80"
+#     - "-DSMALL_C"
+#     - "-DDAMALLOC"
+#     - "-D__MSX__"
+#     - "-D__Z88DK"
+#     - "-D__Z80__"
+#     - "-D__Z80"
+#     - "-D__SCCZ80"
+#     - "-D__CLANG"
+#     - "-D__DISABLE_BUILTIN_MEMSET"
+#     - "-D__DISABLE_BUILTIN_MEMCPY"
+#     - "-D__DISABLE_BUILTIN_STRCPY"
+#     - "-D__DISABLE_BUILTIN_STRCHR"
+#     - "-D__INTELLISENSE__"
+#     - "-D__far=" # hack

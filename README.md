@@ -2,11 +2,11 @@
 
 ![](https://github.com/h1romas4/z88dk-msx-template/workflows/Build/badge.svg) ![](https://github.com/h1romas4/z88dk-msx-template/workflows/Release/badge.svg)
 
-This repository contains sample games made with [Z88DK](https://github.com/z88dk/z88dk), [MAME](https://www.mamedev.org/) and [C-BIOS](http://cbios.sourceforge.net/).
+This repository contains sample games and utilities for MSX development using [Z88DK](https://github.com/z88dk/z88dk), [MAME](https://www.mamedev.org/), and [C-BIOS](http://cbios.sourceforge.net/).
 
-@see [Z88DK を使って MSX のゲームをつくるための環境構築メモ](https://maple4estry.netlify.app/z88dk-msx/)
+See also: [Z88DK を使って MSX のゲームをつくるための環境構築メモ](https://maple4estry.netlify.app/z88dk-msx/)
 
-[Playable by WebMSX](https://webmsx.org/?MACHINE=MSX2J&ROM=https://github.com/h1romas4/z88dk-msx-template/releases/download/v1.6.0/example.rom)
+[Playable on WebMSX](https://webmsx.org/?MACHINE=MSX2J&ROM=https://github.com/h1romas4/z88dk-msx-template/releases/download/v1.6.0/example.rom)
 
 ![](https://raw.githubusercontent.com/h1romas4/z88dk-msx-template/main/docs/images/ponpon-01.png)
 
@@ -19,25 +19,25 @@ MIT License
 ## Special Thanks
 
 - [Z88DK - The Development Kit for Z80 Computers](https://github.com/z88dk/z88dk) - Compiler and toolchain
-- [Lovely Composer](https://1oogames.itch.io/lovely-composer) - Music Sequencer
-- [@aburi6800](https://github.com/aburi6800/msx-PSGSoundDriver) - MSX Sound Driver and Convertor
+- [Lovely Composer](https://1oogames.itch.io/lovely-composer) - Music sequencer
+- [@aburi6800](https://github.com/aburi6800/msx-PSGSoundDriver) - MSX sound driver and converter
 - [MAME](https://www.mamedev.org/) - Emulator
 - [openMSX](https://openmsx.org/) - Emulator
-- [C-BIOS](http://cbios.sourceforge.net/) - MSX Open Source BIOS
-- [Native Debug](https://github.com/WebFreak001/code-debug) -  Native debugging for VSCode
+- [C-BIOS](http://cbios.sourceforge.net/) - MSX open-source BIOS
+- [Native Debug](https://github.com/WebFreak001/code-debug) - Native debugging for VS Code
 - [DeZog](https://github.com/maziac/DeZog) - Visual Studio Code Debugger for Z80/ZX Spectrum.
 
 ## Build
 
-### Require
+### Requirements
 
 - Ubuntu 24.04 LTS or Ubuntu 22.04 LTS or Windows WSL2
-- Z88DK v2.2
+- Z88DK v2.4
     - Setup [Z88DK](https://github.com/z88dk/z88dk/wiki/installation#linux--unix)
     - [.github/workflows/build-release.yml](https://github.com/h1romas4/z88dk-msx-template/blob/833b328d5be6da5c8071ae7fa85b6f0d8f48729c/.github/workflows/build-release.yml#L20-L45)
 - cmake (`sudo apt install cmake`)
 
-Set enviroments on `~/.bashrc`
+Set environment variables in `~/.bashrc`
 
 ```
 # z88dk
@@ -46,15 +46,15 @@ export ZCCCFG=${Z88DK_HOME}/lib/config
 export PATH=${Z88DK_HOME}/bin:${PATH}
 ```
 
-Verifiy
+Verify
 
 ```
 $ which zcc
 /home/hiromasa/devel/msx/z88dk/bin/zcc
 $ ls -laF ${ZCCCFG}/msx.cfg
--rw-rw-r-- 1 hiromasa hiromasa 1035  9月  1 12:10 /home/hiromasa/devel/msx/z88dk/lib/config/msx.cfg
+-rw-rw-r-- 1 hiromasa hiromasa 1627 12月 22 20:18 /home/hiromasa/devel/msx/z88dk/lib/config/msx.cfg
 $ zcc 2>&1 | head -5
-zcc - Frontend for the z88dk Cross-C Compiler - v18586-be7c8763a-20210901
+zcc - Frontend for the z88dk Cross-C Compiler - v23854-4d530b6eb7-20251222
 
 Usage: zcc +[target] {options} {files}
    -v -verbose                  Output all commands that are run (-vn suppresses)
@@ -66,16 +66,15 @@ Usage: zcc +[target] {options} {files}
 Compile
 
 ```
-mkdir build && cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake ..
-make
+cmake -S . -B build
+cmake --build build
 ```
 
-Verifiy
+Verify
 
 ```
-ls -laF ../dist/*.rom
--rw-rw-r-- 1 hiromasa hiromasa  16384  9月  3 18:13 example.rom
+$ ls -laF ../dist/*.rom
+-rw-rw-r-- 1 hiromasa hiromasa 16384 12月 24 14:11 dist/example.rom
 ```
 
 ## Run with openMSX
@@ -88,7 +87,7 @@ Run
 
 ```
 $ ls -laF dist/*.rom
--rw-rw-r-- 1 hiromasa hiromasa 16384  9月  3 18:13 dist/example.rom
+-rw-rw-r-- 1 hiromasa hiromasa 16384 12月 24 14:11 dist/example.rom
 $ openmsx dist/example.rom
 ```
 
@@ -100,20 +99,16 @@ Setup MAME
 
 Enable `-debug` flag
 
-`CMakefiles.txt`
+`CMakeLists.txt`
 
 ```
-add_compile_flags(C
+target_compile_options(${PROJECT_NAME} PRIVATE
     +msx
+    -O2
     -vn
-    -llib3d
-    -lm
-    -lndos
-    -lmsxbios
     -m
-    -debug # Enable
-    # https://github.com/z88dk/z88dk/wiki/Classic-allocation#automatic-heap-configuration
-    -DAMALLOC
+    #$<$<COMPILE_LANGUAGE:C>:-debug> # <- Enable this line
+    $<$<COMPILE_LANGUAGE:ASM>:--list>
 )
 ```
 
@@ -121,9 +116,8 @@ Build with debug
 
 ```
 rm -Rf build/
-mkdir build && cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/z88dk.cmake ..
-make
+cmake -S . -B build
+cmake --build build
 ```
 
 Verify
@@ -159,8 +153,8 @@ Connected to the server.
 
 VSCode Attach ([Native Debug](https://github.com/WebFreak001/code-debug))
 
-- The breakpoint rows may shift, so try setting breakpoints after startup.
-- As of 2022-7, "Step Over" does not seem to return the operation. "Continue" and "Step into" work well, so please use them interchangeably.
+- Breakpoints may shift; set breakpoints after startup.
+- As of July 2022, "Step Over" may not behave reliably. Use "Continue" or "Step Into" instead.
 
 `.vscode/launch.json`
 

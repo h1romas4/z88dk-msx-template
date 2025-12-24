@@ -1,6 +1,7 @@
-// license:MIT License
-// copyright-holders:Hiromasa Tanaka
-
+/*
+ * SPDX-License-Identifier: MIT
+ * SPDX-FileCopyrightText: 2023-2025 Hiromasa Tanaka
+ */
 extern void sounddrv_init();
 extern void sounddrv_exec();
 extern void sounddrv_bgmplay(void *bgm_address);

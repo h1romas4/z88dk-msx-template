@@ -1,0 +1,27 @@
+diff --git a/include/msx.h b/include/msx.h
+index bd50db95ce..546e07ebdb 100755
+--- a/include/msx.h
++++ b/include/msx.h
+@@ -171,8 +171,9 @@ extern int __LIB__ msx_type(void);
+ // 1 = MSX 2
+ // 2 = MSX 2+
+ // 3 = MSX turbo R
++#ifndef __INTELLISENSE__
+ static __at(0x2d) unsigned char MSX2_SUBTYPE;
+-
++#endif
+
+ // Check if the line printer is ready (1=ready, 0 if not)
+ extern bool_t __LIB__ msx_lpt(void);
+diff --git a/include/string.h b/include/string.h
+index 4716b97e2f..ff80109dc3 100644
+--- a/include/string.h
++++ b/include/string.h
+@@ -422,7 +422,7 @@ extern void __LIB__    *memopd_callee(void *, void *, uint, uint) __smallc __z88
+ #ifdef __SCCZ80
+ // Far string functions - only a short selection
+
+-extern char __LIB__ *__far strdupf(const char *__far orig);:
++extern char __LIB__ *__far strdupf(const char *__far orig);
+
+ extern int __LIB__         strlenf(const char *__far );

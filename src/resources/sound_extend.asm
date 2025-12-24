@@ -1,5 +1,5 @@
-; license:MIT License
-; copyright-holders:Hiromasa Tanaka
+; SPDX-License-Identifier: MIT
+; SPDX-FileCopyrightText: 2023-2025 Hiromasa Tanaka
 _sound_extend:
     DB  0
     DW  _sound_extend_trk1
