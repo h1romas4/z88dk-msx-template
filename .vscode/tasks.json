@@ -4,76 +4,65 @@
   "version": "2.0.0",
   "tasks": [
     {
-        "label": "Clean CMake directory",
-        "type": "shell",
-        "linux": {
-            "command": "rm -Rf ${workspaceFolder}/build && mkdir ${workspaceFolder}/build"
-        }
+      "label": "Clean CMake directory",
+      "type": "shell",
+      "linux": {
+        "command": "rm -Rf ${workspaceFolder}/build",
+      },
     },
     {
-        "label": "Clean Build (make)",
-        "type": "shell",
-        "linux": {
-            "command": "(cd ${workspaceFolder}/build && make clean && rm -f ${workspaceFolder}/dist/*)"
-        }
+      "label": "Run CMake (make)",
+      "type": "shell",
+      "dependsOn": "Clean CMake directory",
+      "linux": {
+        "command": "cmake -S . -B build",
+      },
     },
     {
-        "label": "Run CMake (make)",
-        "type": "shell",
-        "dependsOn": "Clean CMake directory",
-        "linux": {
-            "command": "(cd ${workspaceFolder}/build && cmake -DCMAKE_TOOLCHAIN_FILE=${workspaceFolder}/cmake/z88dk.cmake ..)"
-        }
+      "label": "Clean Build (make)",
+      "type": "shell",
+      "linux": {
+        "command": "make --build build --target clean",
+      },
     },
     {
-        "label": "Run Build (make)",
-        "type": "shell",
-        "dependsOn": "Clean Build (make)",
-        "linux": {
-            "command": "(cd ${workspaceFolder}/build && make)"
-        }
+      "label": "Run Build (make)",
+      "type": "shell",
+      "dependsOn": "Clean Build (make)",
+      "linux": {
+        "command": "cmake --build build",
+      },
     },
     {
-        "label": "Launch openMSX",
-        "type": "shell",
-        "linux": {
-            "command": "openmsx ${workspaceFolder}/dist/example.rom"
-        }
-    },
-    {
-        "label": "Launch openMSX debugger",
-        "type": "shell",
-        "linux": {
-            "command": "openmsx-debugger"
-        }
+      "label": "Launch openMSX",
+      "type": "shell",
+      "linux": {
+        "command": "openmsx ${workspaceFolder}/dist/example.rom",
+      },
     },
     {
       "label": "Launch MAME",
       "type": "shell",
-      "dependsOn":[
-        "Deploy for MAME"
-      ],
+      "dependsOn": ["Deploy for MAME"],
       "linux": {
-          "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbiosm1jp example)"
-      }
+        "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbiosm1jp example)",
+      },
     },
     {
       "label": "Launch MAME with debugger",
       "type": "shell",
-      "dependsOn":[
-        "Deploy for MAME"
-      ],
+      "dependsOn": ["Deploy for MAME"],
       "linux": {
-          "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbiosm1jp example -debugger gdbstub -debug)"
-      }
+        "command": "(cd ${workspaceFolder}/mics/mame && ./mame cbiosm1jp example -debugger gdbstub -debug)",
+      },
     },
     {
       "label": "Deploy for MAME",
       "type": "shell",
       "dependsOn": "Run Build (make)",
       "linux": {
-          "command": "(cd dist/ && rm -f ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip && zip -j ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip example.rom)"
-      }
-    }
-  ]
+        "command": "(cd dist/ && rm -f ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip && zip -j ${workspaceFolder}/mics/mame/roms/msx1_cart/example.zip example.rom)",
+      },
+    },
+  ],
 }
