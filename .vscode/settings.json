@@ -1,6 +1,6 @@
 {
   "cmake.generator": "Ninja",
   "cmake.configureSettings": {
-      "CMAKE_TOOLCHAIN_FILE" : "${workspaceFolder}/cmake/z88dk.cmake"
+      "CMAKE_TOOLCHAIN_FILE" : "${workspaceFolder}/CMakeLists.txt"
   }
 }
